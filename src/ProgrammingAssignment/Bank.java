@@ -10,6 +10,26 @@ private HashMap fees[];
 private ArrayList<Integer> rates;
 private ArrayList<Teller> tellers; 
 
+//I instantiated BigBank here so we don't need to reinstantiate each time we test the code.
+private volatile static Bank BigBank = null;
+private Bank() { }
+public static Bank getInstance() {
+if (BigBank == null) {
+synchronized (Bank.class) {
+if (BigBank == null) {
+BigBank = new Bank();
+}
+}
+}
+return BigBank;
+}
+
+
+
+
+
+
+
 
 public Bank (String name, Address makom){
 	this.bankName=name;

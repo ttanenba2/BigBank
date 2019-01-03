@@ -1,12 +1,14 @@
 package ProgrammingAssignment;
 import java.time.*;
-
+import java.util.ArrayList;
 public class BankAccount {
 private	String AccountID;
 private Double initialBalance;
 private Double currentBalance;	
 private LocalDate accountOpened;
 private Customer customer;
+private ArrayList<Transaction> Transactions;
+private ArrayList<fee> Fees;
 
 public BankAccount (String AccountID, Double initialBalance, Customer customer) 
 {if (initialBalance<100){throw new InvalidDataException("Initial balance cannot be less than one hundred dollars.");}
@@ -17,9 +19,12 @@ this.customer=customer;
 }
 
 
-public void deposit (Double amount){
-	if (amount<0) {throw new InvalidDataException("Amount cannot be less than zero.");}
-	this.currentBalance=this.currentBalance+amount;
+public void deposit (Double amount, DepositType type){
+	if (type.valueOf('check')|| type.valueOf('mixed')){
+		
+		
+	}
+	
 }
 public void withdrawal (Double amount){
 	if (amount<0||amount>this.currentBalance){throw new InvalidDataException("Amount must be greater than zero and less than your current balance.");}
@@ -46,7 +51,7 @@ public Integer getCustID(){
 public Address getCustAddress(){
 	return this.customer.getAddress();
 }
-public LocalDate getAccountOpen1date(){
+public LocalDate getAccountOpenDate(){
 	return this.accountOpened;
 }
 public double getInitialBalance(){
