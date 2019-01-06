@@ -1,6 +1,8 @@
 package ProgrammingAssignment;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.*;
 import java.util.Scanner;
 
@@ -13,18 +15,21 @@ public class Transaction {
 	private TransType transType;
 	private Scanner scan;
 	
-	public Transaction(){
-		initializeTransactionID(C:\transactionID.txt);
-		saveLastTransactionID(C:\transactionID.txt);
+	public Transaction(String fromAccountID, double transAmount) throws IOException{  //added parameters for now
+		initializeTransactionID("C:\transactionID.txt");
+		saveLastTransactionID("C:\transactionID.txt");
+		this.accountID = fromAccountID;
+		this.transAmount = transAmount;
+		
 	}
 	
 	
-	private void initializeTransactionID (string filename) throws IOException {
+	private void initializeTransactionID (String filename) throws IOException {
 		try{
 			File transIdFile=new File(filename);
 		Scanner input=new Scanner(transIdFile);//open input file in a readable format
 		lastTransactionID=input.nextInt();
-	    this.transID=lasttransID++;
+	    this.transID=lastTransactionID++;
 	}
 catch (FileNotFoundException e){
 	System.out.println("We cannot find that file. Please try again.");
@@ -34,7 +39,7 @@ catch (FileNotFoundException e){
 	
 	private  void saveLastTransactionID(String filename) throws IOException{
 		try{
-			Integer chadash=lastTransactionID;
+			int chadash= (int)transID;//lastTransactionID; Integer
 			FileWriter filewriter= new FileWriter(filename);
 			filewriter.write(chadash);
 			filewriter.close();

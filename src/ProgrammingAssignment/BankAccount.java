@@ -1,4 +1,5 @@
 package ProgrammingAssignment;
+import java.io.IOException;
 import java.time.*;
 import java.util.ArrayList;
 public class BankAccount {
@@ -7,23 +8,22 @@ private Double initialBalance;
 private Double currentBalance;	
 private LocalDate accountOpened;
 private Customer customer;
-private ArrayList<Transaction> Transactions;
-private ArrayList<fee> Fees;
+private ArrayList<Transaction> Transactions; //says on uml array?
+private ArrayList<fee> Fees;//""
 
 public BankAccount (String AccountID, Double initialBalance, Customer customer) 
-{if (initialBalance<100){throw new InvalidDataException("Initial balance cannot be less than one hundred dollars.");}
-this.initialBalance=initialBalance;
-this.currentBalance=initialBalance;
-this.accountOpened=LocalDate.now();
-this.customer=customer;
+{
+	if (initialBalance<100){throw new InvalidDataException("Initial balance cannot be less than one hundred dollars.");}
+	this.initialBalance=initialBalance;
+	this.currentBalance=initialBalance;
+	this.accountOpened=LocalDate.now();
+	this.customer=customer;
 }
 
 
 public void deposit (Double amount, DepositType type){
-	if (type.valueOf('check')|| type.valueOf('mixed')){
-		
-		
-	}
+	//if (type.valueOf('check')|| type.valueOf('mixed')){}  I dont know what to use ths for
+	
 	
 }
 public void withdrawal (Double amount){
@@ -86,4 +86,23 @@ public String toString(){
 	str.append(this.customer.getAddress().getStreet()+", "+this.customer.getAddress().getCity()+", "+this.customer.getAddress().getAddressState()+", "+this.customer.getAddress().getZipcode()+"\n");
 	return str.toString();
 }
+
+public void addFee(fee theFee) {
+	Fees.add(theFee);
+}
+public Transfer transferTo(double amount, String accountToID) throws IOException {
+	return new Transfer(this.AccountID, accountToID, amount);
+}
+public void transferFrom(Transfer transfer) {
+	//if(transfer.getFromAccountID()) is equlal to this accountID?
+	Transactions.add(transfer); //?
+	currentBalance+=transfer.getTransAmount();
+}
+
+
+
+
+
+
+
 }//close class
