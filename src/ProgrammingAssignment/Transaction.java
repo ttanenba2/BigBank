@@ -15,7 +15,7 @@ public class Transaction {
 	private TransType transType;
 	private Scanner scan;
 	
-	public Transaction(String fromAccountID, double transAmount) throws IOException{  //added parameters for now
+	public Transaction(String fromAccountID, double transAmount, TransType transType) throws IOException{  //added parameters for now
 		initializeTransactionID("C:\transactionID.txt");
 		saveLastTransactionID("C:\transactionID.txt");
 		this.accountID = fromAccountID;

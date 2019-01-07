@@ -8,7 +8,7 @@ private Double initialBalance;
 private Double currentBalance;	
 private LocalDate accountOpened;
 private Customer customer;
-private ArrayList<Transaction> Transactions; //says on uml array?
+protected ArrayList<Transaction> Transactions; //says on uml array?
 private ArrayList<fee> Fees;//""
 
 public BankAccount (String AccountID, Double initialBalance, Customer customer) 
@@ -33,7 +33,7 @@ public void withdrawal (Double amount){
 public String getAccountID(){
 	return this.AccountID;
 }
-public Double getBalance(){
+public double getBalance(){
 	return this.currentBalance;
 }
 public String getCustFirstName(){
