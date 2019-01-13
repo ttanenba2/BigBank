@@ -47,4 +47,7 @@ public class SavingsAccount extends BankAccount implements Accruable {
 		Transactions.add(new InterestPosting(getAccountID(), interestRate, getBalance(), interval));//, TransType.INTEREST));
 	}
 
+	public Interval getInterval() {
+		return interestInterval;
+	}
 }

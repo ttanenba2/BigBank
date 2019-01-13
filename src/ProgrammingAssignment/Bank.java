@@ -1,14 +1,17 @@
 package ProgrammingAssignment;
 import java.util.*;
 import java.io.*;
+import java.time.LocalDate;
 public class Bank {
 private String bankName;
 private Address address;
 private ArrayList<Customer> customers;
 private ArrayList<BankAccount> bankAccounts;
-private HashMap fees[];
-private ArrayList<Integer> rates;
+private HashMap fees[]; //y?
+private ArrayList<InterestRate> rates;
 private ArrayList<Teller> tellers; 
+
+private double bankInterestRate;
 
 //I instantiated BigBank here so we don't need to reinstantiate each time we test the code.
 private volatile static Bank BigBank = null;
@@ -48,7 +51,7 @@ public Bank(String bankName, Address address, String firstName, String lastName,
 	this.bankAccounts=new ArrayList<BankAccount>();
 	this.addCustomer(firstName, lastName, socialSecNum, address2.getStreet(), address2.getCity(), address2.getAddressState().toString(), address2.getZipcode(), fileName);
 }
-public BankAccount findAccount (String accountid){
+public  BankAccount findAccount (String accountid){
 	BankAccount dc=null;
 	for (BankAccount ba:this.getBankAccounts()){
 		if (ba.getAccountID().equals(accountid)){
@@ -252,20 +255,34 @@ public String toString(){
 	str.append("Bank Accounts: "+ this.bankAccounts+"\n");
 		return str.toString();
 }
-public void transfer (BankAccount acctfrom, BankAccount acctto, int amt){
-	@TODO
+public void transfer (String acctIDfrom, String acctIDto, int amt) throws IOException{  //was bankAccount type but switched it to ids
+	//findAccount(accIDfrom);  if acctto would be an ID string, which it may be supposed to be
+	Transfer transfer =findAccount( acctIDfrom).transferTo(amt, acctIDto);  //takes money out and stores as transaction
+	findAccount(acctIDto).transferFrom(transfer);
 }
-public void addFee(feeType, int){//add fee types
-	@TODO
+public void addFee(String accountID, FEETYPE feeType, int amount){//add fee types  add a fee to what?? so added acountid
+	findAccount(accountID).addFee(new fee(feeType, amount));
 }
-public Fee getFee (feeType){
-	@TODO
+public fee getFee (FEETYPE feeType, double feeAmount){//which fee?!?!!, the most recent??? does it make a fee?
+	return new fee(feeType, feeAmount);  
 }
-public void postInterestRate(Interval){
-	@TODO
+public void postInterest(Interval interval) throws IOException{
+	double total =0;
+	for(BankAccount account: bankAccounts) {
+		if(account instanceof SavingsAccount ) {//only savingsaccounts hav interest?
+			if(account instanceof CDAccount && interval.equals(Interval.MONTHLY)) {
+				((SavingsAccount) account).postInterest(((CDAccount) account).getInterestRate(), interval);  //probably womthing wrong here
+				
+			}
+			else if(((SavingsAccount)account).getInterval().equals(interval)) {  //if its the same interval
+				((SavingsAccount) account).postInterest(rates.get(rates.size()-1), interval);  //gets most recent from rates ,,bankInt.. created by me as standard rate
+			}
+			
+		}
+	}
 }
-public void setInterestRate (double amt){
-	 @TODO
+public void setInterestRate (double amount){ //do u need interval or not??
+	 rates.add(new InterestRate(amount, LocalDate.now()));
 }
 public void cashCheck (Check check){
 	@TODO
