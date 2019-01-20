@@ -297,30 +297,38 @@ public void cashCheck (Check check, String accountIDTo) throws IOException{  //u
 		
 	 bankAccountTo.addFee(new fee(FEETYPE.RETURNEDCHECK, 10.00) );//made up 10 as the fee
 	 bankAccountTo.withdrawal(10.00);//fee deducted from account
+	 //set checkStatus to returned
 	}
 }
 public void depositCheck (Check check, String accountIDTo) throws IOException{ //accountIDfrom is inside check
 	BankAccount bankAccountTo = findAccount(accountIDTo);
 	boolean isCashable= ((CheckingAccount) findAccount(check.getAccountID())).cashCheck(check);
-	if(isCashable) {//checkDeposit or Deposit, access?????
+	CheckDeposit theCheckDeposit=null;
+	//if(isCashable) {//checkDeposit or Deposit, access?????
 		for(Transaction t: bankAccountTo.Transactions ) {
 			if(t.getTransType()==TransType.DEPOSIT) {//x check? cuz thats for the ones that makes it?
 				CheckDeposit[] checkDeposits = ((Deposit)t).getCheckDeposits();
 				if(checkDeposits!=null) {
 					for(CheckDeposit cd: checkDeposits) {
 						if(check.getCheckNum()==cd.getCheckNum()) {
-							///do something //TODO******
-							cd.setCheckStatus(CheckStatus.DEPOSITED);
+							///do something 
 							bankAccountTo.deposit(check.getAmount(), DepositType.check);
+							cd.setCheckStatus(CheckStatus.DEPOSITED);
+							theCheckDeposit =cd;
 						}
 					}
 				}
 			}
 		}
-	}
+	//}
+		if(isCashable) {
+			//
+		}
 	else {
-	 findAccount(accountIDTo).addFee(new fee(FEETYPE.RETURNEDCHECK, 10.00) );
-	 findAccount(accountIDTo).withdrawal(10.00);
+	 bankAccountTo.addFee(new fee(FEETYPE.RETURNEDCHECK, 10.00) );
+	 bankAccountTo.withdrawal(10.00);//feeamount
+	 //take out the amount of the check from whose account???*******
+	 theCheckDeposit.setCheckStatus(CheckStatus.RETURNED);
 	}
 }
 }//close class
