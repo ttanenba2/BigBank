@@ -25,4 +25,8 @@ public void resetPassword(String currentPassword, String newPassword){
 		this.password=newPassword;
 	}
 }
+public String getPassword() {
+	// TODO Auto-generated method stub
+	return password;
+}
 }

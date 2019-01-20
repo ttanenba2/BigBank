@@ -10,6 +10,7 @@ private ArrayList<BankAccount> bankAccounts;
 private HashMap fees[]; //y?
 private ArrayList<InterestRate> rates;
 private ArrayList<Teller> tellers; 
+private Teller currentTeller;
 
 private double bankInterestRate;
 
@@ -31,6 +32,17 @@ return BigBank;
 
 
 
+public void addTeller(String employeeID, String loginID, String password, String fname, String lname) {
+	tellers.add(new Teller(employeeID, fname, lname,  loginID, password));
+	
+}
+public void TellerLogin(String loginID, String password) {
+	for(Teller teller: tellers) {
+		if(teller.getLoginID().equals(loginID) && teller.getPassword().equals(password)) {
+			currentTeller = teller;
+		}
+	}
+}
 
 
 
@@ -272,7 +284,7 @@ public void postInterest(Interval interval) throws IOException{
 	double total =0;
 	for(BankAccount account: bankAccounts) {
 		if(account instanceof SavingsAccount ) {//only savingsaccounts hav interest?
-			if(account instanceof CDAccount && interval.equals(Interval.MONTHLY)) { ///should be interval but doesnt work, needs to be changed
+			if(account instanceof CDAccount && interval.equals(Interval.MONTHLY)) { 
 				((SavingsAccount) account).postInterest(((CDAccount) account).getInterestRate(), interval);  //probably womthing wrong here
 				
 			}
