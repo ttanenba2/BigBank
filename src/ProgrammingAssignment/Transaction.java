@@ -49,7 +49,9 @@ catch (FileNotFoundException e){
 	}
 	}
 	
-	
+	public Transaction getTransaction() {//added 1/20/19
+		return this;
+	}
 	
 	public String getAccountID() {
 		return accountID;

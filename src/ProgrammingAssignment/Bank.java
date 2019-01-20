@@ -288,16 +288,37 @@ public void setInterestRate (double amount){ //do u need interval or not??
 }
 public void cashCheck (Check check, String accountIDTo) throws IOException{  //u do need accountID for this in case it bounces
 	boolean isCashable= ((CheckingAccount) findAccount(check.getAccountID())).cashCheck(check);
+	BankAccount bankAccountTo = findAccount(accountIDTo);
 	if(isCashable) {
 		//do nothing
 		//would change the status to deposited but thats in checkDeposit which wer not rly useing?
 	}
 	else {//which account gets charged???
-	 findAccount(accountIDTo).addFee(new fee(FEETYPE.RETURNEDCHECK, 10.00) );//made up 10 as the fee
-	 findAccount(accountIDTo).withdrawal(10.00);//fee deducted from account
+		
+	 bankAccountTo.addFee(new fee(FEETYPE.RETURNEDCHECK, 10.00) );//made up 10 as the fee
+	 bankAccountTo.withdrawal(10.00);//fee deducted from account
 	}
 }
-public void depositCheck (Check check, String accountIDTo){ //accountIDfrom is inside check
-	@TODO
+public void depositCheck (Check check, String accountIDTo) throws IOException{ //accountIDfrom is inside check
+	BankAccount bankAccountTo = findAccount(accountIDTo);
+	boolean isCashable= ((CheckingAccount) findAccount(check.getAccountID())).cashCheck(check);
+	if(isCashable) {//checkDeposit or Deposit, access?????
+		for(Transaction t: bankAccountTo.Transactions ) {
+			if(t.getTransType()==TransType.DEPOSIT) {//x check? cuz thats for the ones that makes it?
+				CheckDeposit[] checkDeposits = ((Deposit)t).getCheckDeposits();
+				if(checkDeposits!=null) {
+					for(CheckDeposit cd: checkDeposits) {
+						if(check.getCheckNum()==cd.getCheckNum()) {
+							///do something //TODO******
+						}
+					}
+				}
+			}
+		}
+	}
+	else {
+	 findAccount(accountIDTo).addFee(new fee(FEETYPE.RETURNEDCHECK, 10.00) );
+	 findAccount(accountIDTo).withdrawal(10.00);
+	}
 }
 }//close class

@@ -29,12 +29,11 @@ public Deposit(String accountID, double totalAmount, CheckDeposit[] checkDeposit
 	
 }
 
-
-
-
-
 public DepositType getDepositType(){
 	return depositType;
+}
+public CheckDeposit[] getCheckDeposits() {
+	return this.checkDeposits;
 }
 
 

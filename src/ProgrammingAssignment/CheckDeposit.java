@@ -6,11 +6,11 @@ public class CheckDeposit {
 	private int bankRoutingID;
 	private CheckStatus checkStatus; 
 	
-	public CheckDeposit(int checkNum, int accountID, int bankRoutingID, CheckStatus checkStatus) {
+	public CheckDeposit(int checkNum, int accountID, int bankRoutingID) {//, CheckStatus checkStatus
 		this.checkNum = checkNum;
 		this.accountID = accountID;
 		this.bankRoutingID = bankRoutingID;
-		this.checkStatus=checkStatus;
+		//this.checkStatus=checkStatus;
 		
 	}
 	//getters
@@ -21,6 +21,12 @@ public class CheckDeposit {
 	public void setCheckStatus(CheckStatus checkStatus) {
 		this.checkStatus = checkStatus;
 	}
-	
+	public int getAccountID() {
+		// TODO Auto-generated method stub
+		return accountID;
+	}
+	public int getCheckNum() {
+		return checkNum;
+	}
 	//toString*
 }
