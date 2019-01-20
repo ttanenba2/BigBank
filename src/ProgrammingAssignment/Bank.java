@@ -132,14 +132,16 @@ public void openAccount(String accountID, Double initialBalance, Integer custome
 	BankAccount chadash=new BankAccount(accountID, initialBalance, seesaw);
 	this.bankAccounts.add(chadash);
 }
-public void deposit (String AccountID, Double amount)  {
+/*public void deposit (String AccountID, Double amount)  {    // there is no such method
 	for (BankAccount a:this.bankAccounts){
 	
 		if (a.getAccountID().equals(AccountID)) {
-			a.deposit(amount);
+			//a.deposit(amount);
+			a.
 		}
 	}
 }
+*/
 public boolean withdraw(String AccountID, Double amount){
 	for (BankAccount a:this.bankAccounts){
 		
@@ -284,10 +286,18 @@ public void postInterest(Interval interval) throws IOException{
 public void setInterestRate (double amount){ //do u need interval or not??
 	 rates.add(new InterestRate(amount, LocalDate.now()));
 }
-public void cashCheck (Check check){
-	@TODO
+public void cashCheck (Check check, String accountIDTo) throws IOException{  //u do need accountID for this in case it bounces
+	boolean isCashable= ((CheckingAccount) findAccount(check.getAccountID())).cashCheck(check);
+	if(isCashable) {
+		//do nothing
+		//would change the status to deposited but thats in checkDeposit which wer not rly useing?
+	}
+	else {//which account gets charged???
+	 findAccount(accountIDTo).addFee(new fee(FEETYPE.RETURNEDCHECK, 10.00) );//made up 10 as the fee
+	 findAccount(accountIDTo).withdrawal(10.00);//fee deducted from account
+	}
 }
-public void depositCheck (Check check, int acctID){
+public void depositCheck (Check check, String accountIDTo){ //accountIDfrom is inside check
 	@TODO
 }
 }//close class

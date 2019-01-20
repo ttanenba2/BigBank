@@ -91,7 +91,10 @@ public void addFee(fee theFee) {
 	Fees.add(theFee);
 }
 public Transfer transferTo(double amount, String accountToID) throws IOException {
-	return new Transfer(this.AccountID, accountToID, amount);
+	
+	Transfer t =new Transfer(this.AccountID, accountToID, amount);
+	Transactions.add(t);
+	return t;
 }
 public void transferFrom(Transfer transfer) {
 	//if(transfer.getFromAccountID()) is equlal to this accountID?

@@ -12,4 +12,7 @@ public class CDAccount extends SavingsAccount{
 	}
 	//getters?
 
+	public InterestRate getInterestRate() {
+		return interestRate;
+	}
 }
