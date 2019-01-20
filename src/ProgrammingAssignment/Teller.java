@@ -29,4 +29,7 @@ public String getPassword() {
 	// TODO Auto-generated method stub
 	return password;
 }
+	public String getName(){
+		String name=(this.fn+" "+this.ln);
+		return name;
 }
