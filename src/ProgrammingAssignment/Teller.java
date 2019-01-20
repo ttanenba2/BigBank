@@ -4,6 +4,7 @@ public class Teller extends Employee {
 private String loginID;
 private String password;
 
+
 public Teller (String id, String fn, String ln){
 super(id, fn, ln);
 }
@@ -30,6 +31,6 @@ public String getPassword() {
 	return password;
 }
 	public String getName(){
-		String name=(this.fn+" "+this.ln);
+		String name=(getFirstName()+" "+this.getLastName());
 		return name;
 }
