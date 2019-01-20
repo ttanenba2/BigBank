@@ -272,7 +272,7 @@ public void postInterest(Interval interval) throws IOException{
 	double total =0;
 	for(BankAccount account: bankAccounts) {
 		if(account instanceof SavingsAccount ) {//only savingsaccounts hav interest?
-			if(account instanceof CDAccount && interval.equals(Interval.MONTHLY)) {
+			if(account instanceof CDAccount && interval.equals(Interval.MONTHLY)) { ///should be interval but doesnt work, needs to be changed
 				((SavingsAccount) account).postInterest(((CDAccount) account).getInterestRate(), interval);  //probably womthing wrong here
 				
 			}
@@ -310,6 +310,8 @@ public void depositCheck (Check check, String accountIDTo) throws IOException{ /
 					for(CheckDeposit cd: checkDeposits) {
 						if(check.getCheckNum()==cd.getCheckNum()) {
 							///do something //TODO******
+							cd.setCheckStatus(CheckStatus.DEPOSITED);
+							bankAccountTo.deposit(check.getAmount(), DepositType.check);
 						}
 					}
 				}
