@@ -8,7 +8,7 @@ private Double initialBalance;
 private Double currentBalance;	
 private LocalDate accountOpened;
 private Customer customer;
-protected ArrayList<Transaction> Transactions; //says on uml array?
+protected ArrayList<Transaction> Transactions; //says on uml array?  //should have two separte arrys for deposit and subtractions no?
 private ArrayList<fee> Fees;//""
 
 public BankAccount (String AccountID, Double initialBalance, Customer customer) 
@@ -21,10 +21,19 @@ public BankAccount (String AccountID, Double initialBalance, Customer customer)
 }
 
 
-public void deposit (Double amount, DepositType type){
+public void deposit (Double amount, DepositType type) throws IOException{  //*****should be transtype not deposit type, change it?????? but its obcously deposti do should just be blank..
 	//if (type.valueOf('check')|| type.valueOf('mixed')){}  I dont know what to use ths for
+	Transactions.add(new Deposit(AccountID, amount ));
+	currentBalance+=amount;
 	
-	
+}
+public deposit(String accountID, int totalAmount, CheckDeposit[] checkDeposits) throws IOException{
+	Transactions.add(new Deposit(AccountID, totalAmount));
+	currentBalance+= totalAmount;  //what r we doing if the checks bounce
+	for(CheckDeposit checkDeposit: checkDeposits ) {
+		int accountIDFrom =checkDeposit.getAccountID();  //find out if the account that issued the check has enough money in their account and add it to their transactions and mark the check as deposited or returned
+		//do this from the bank class so that it could access the bankaccounts?? but then what do we need above deposit for???
+	}
 }
 public void withdrawal (Double amount){
 	if (amount<0||amount>this.currentBalance){throw new InvalidDataException("Amount must be greater than zero and less than your current balance.");}

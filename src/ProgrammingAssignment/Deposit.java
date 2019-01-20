@@ -32,7 +32,7 @@ public Deposit(String accountID, double totalAmount, CheckDeposit[] checkDeposit
 public DepositType getDepositType(){
 	return depositType;
 }
-public CheckDeposit[] getCheckDeposits() {
+public CheckDeposit[] getCheckDeposits() {//added
 	return this.checkDeposits;
 }
 
