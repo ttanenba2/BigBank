@@ -315,7 +315,7 @@ int reply=input.nextInt();
 		int bechira=input.nextInt();
 		input.nextLine();
 		
-		{switch (bechira)
+		switch (bechira)
 			{case 1:
 				System.out.println("Enter a new account ID.");
 				String AID=input.nextLine();
@@ -362,12 +362,13 @@ int reply=input.nextInt();
 				
 			
 			
-		}//end switch
+		
 		
 
 		
 		input.nextLine();
 		break;
+		}//end switch
 
 	case 7: //get total bank balance
 		double total=0;
