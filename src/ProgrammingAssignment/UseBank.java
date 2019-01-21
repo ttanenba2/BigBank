@@ -397,7 +397,13 @@ int reply=input.nextInt();
 		}//close cases
 }	//close switch statement
 
-if (LocalDate.now().isEqual(last))
+ //To create a new interest rate:
+ System.out.println("What is the new rate?");
+double amount= input.nextInt();
+ BigBank.setInterestRate(amount);
+ 
+ 
+if (!LocalDate.now().isEqual(last))
 {
 BigBank.postInterest(Interval.DAILY);
 if(LocalDate.now().getDayOfMonth()==LocalDate.now().lengthOfMonth()) {
