@@ -106,7 +106,7 @@ int reply=input.nextInt();
 		System.out.println(BigBank.toString());  //this prints basic account info, statements will be different
 		break;
 		
-	case 5: //manage account
+	/*case 5: //manage account
 		System.out.println("Enter the account ID.");
 	String critical=input.nextLine();
 		System.out.println("What would you like to do?");
@@ -138,8 +138,58 @@ int reply=input.nextInt();
 		}//end switch
 		input.nextLine();
 		input.nextLine();
+		break;*/
+	case 5: //manage account
+		System.out.println("Enter the account ID.");
+	String iidd=input.nextLine();
+	 BankAccount ba=BigBank.findAccount(iidd);
+		System.out.println("What would you like to do?");
+		System.out.println("1. Deposit Checks");
+		System.out.println("2. Deposit Checks and cash ");
+		System.out.println("3. Deposit cash");
+		System.out.println("4. Cash Check"
+				+ "5. Add Fee"
+				+ "6. Transfer");
+		 int choice=input.nextInt();//int
+		{switch (choice)
+			{case 1:
+				System.out.println("How many checks?");
+				int amountOfChecks=input.nextInt();
+				input.nextLine();
+				System.out.println("Total Amount on checks");
+				int amountOfMoney = input.nextInt();
+				input.nextLine();
+				CheckDeposit[] checks = new CheckDeposit[amountOfChecks];  //will this work more than once
+				for(CheckDeposit cd: checks) {
+					System.out.println("Check Number: ");
+					int checknum = input.nextInt();
+					System.out.println("Bank Routing Number: ");
+					int routingnum = input.nextInt();
+					input.nextLine();
+					cd = new CheckDeposit(checknum, critical, routingnum);
+					
+				}
+				
+				break;
+			case 2:
+				System.out.println("How much would you like to withdraw?");
+				Double skm=input.nextDouble();
+				input.nextLine();
+				boolean fake=	BigBank.withdraw(critical, skm);
+				if (fake==false){throw new InvalidDataException("Not enough funds");}
+				break;
+			case 3:
+				System.out.println(BigBank.getAccountBalance(critical));
+				break;
+			default:
+				break;
+			}
+			
+		}//end switch
+		input.nextLine();
+		input.nextLine();
 		break;
-
+	}
 	case 6: //manage cusotmer
 		System.out.println("Enter customer ID.");
 		Integer crucial=input.nextInt();
@@ -198,56 +248,7 @@ int reply=input.nextInt();
 						System.out.println(ba.getBalance());
 					}
 				
-			case 5: //manage account
-				System.out.println("Enter the account ID.");
-			String critical=input.nextLine();
-				System.out.println("What would you like to do?");
-				System.out.println("1. Deposit Checks");
-				System.out.println("2. Deposit Checks and cash ");
-				System.out.println("3. Deposit cash");
-				System.out.println("4. Cash Check"
-						+ "5. Add Fee"
-						+ "6. Transfer");
-				int choice=input.nextInt();
-				{switch (choice)
-					{case 1:
-						System.out.println("How many checks?");
-						int amountOfChecks=input.nextInt();
-						input.nextLine();
-						System.out.println("Total Amount on checks");
-						int amountOfMoney = input.nextInt();
-						input.nextLine();
-						CheckDeposit[] checks = new CheckDeposit[amountOfChecks];  //will this work more than once
-						for(CheckDeposit cd: checks) {
-							System.out.println("Check Number: ");
-							int checknum = input.nextInt();
-							System.out.println("Bank Routing Number: ");
-							int routingnum = input.nextInt();
-							input.nextLine();
-							cd = new CheckDeposit(checknum, critical, routingnum);
-							
-						}
-						
-						break;
-					case 2:
-						System.out.println("How much would you like to withdraw?");
-						Double skm=input.nextDouble();
-						input.nextLine();
-						boolean fake=	BigBank.withdraw(critical, skm);
-						if (fake==false){throw new InvalidDataException("Not enough funds");}
-						break;
-					case 3:
-						System.out.println(BigBank.getAccountBalance(critical));
-						break;
-					default:
-						break;
-					}
-					
-				}//end switch
-				input.nextLine();
-				input.nextLine();
-				break;
-			}
+			
 			
 		}//end switch
 		
