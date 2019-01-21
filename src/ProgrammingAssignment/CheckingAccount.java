@@ -22,4 +22,7 @@ public class CheckingAccount extends BankAccount{
 		}
 		
 	}
+	//public String toString() {
+	//	return super.toString() +"/n"
+	//}
 }

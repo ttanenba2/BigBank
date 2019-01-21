@@ -13,7 +13,7 @@ private double cashAmount;
 
 //extends for actid?
 
-public Deposit(String accountID, int totalAmount, CheckDeposit[] checkDeposits) throws IOException{
+public Deposit(String accountID, double totalAmount, CheckDeposit[] checkDeposits) throws IOException{
 	super(accountID, totalAmount, TransType.DEPOSIT);
 	this.depositType = DepositType.check;   //bc its just checkdeposits
 	this.checkDeposits = checkDeposits; //shallow copy

@@ -7,6 +7,10 @@ public class UseBank {
 public static void main (String[]args){
 	Scanner input=new Scanner(System.in);
 	
+	CheckDeposit[] checkDeposits;  
+	ArrayList<Check> Checks;
+	double totalAmount;
+	
 	/*This code would help us instantiate BigBank as the current bank. 
 	Since our program only uses BigBank for the time being, we instantiated it elsewhere in our code
 	so that the information does not need to be reentered every time. If the program expands to include 
@@ -155,14 +159,18 @@ int reply=input.nextInt();
 		 int choice=input.nextInt();//int
 		{switch (choice)
 			{case 1:
+			
+				System.out.println("Cash total: ");
+				double cashtotal = input.nextDouble();
 				System.out.println("How many checks?");
 				int amountOfChecks=input.nextInt();
 				input.nextLine();
-				System.out.println("Total Amount on checks");
-				int amountOfMoney = input.nextInt();
+				System.out.println("Total Amount on checks and cash");  //cash here
+				totalAmount = input.nextDouble();
 				input.nextLine();
-				CheckDeposit[] checks = new CheckDeposit[amountOfChecks];  //will this work more than once
-				for(CheckDeposit cd: checks) {
+				checkDeposits = new CheckDeposit[amountOfChecks];  //will this work more than once
+				Checks= new ArrayList<Check>(amountOfChecks);
+				for(CheckDeposit cd: checkDeposits) {
 					System.out.println("Check Number: ");
 					int checknum = input.nextInt();
 					System.out.println("Bank Routing Number: ");
@@ -170,11 +178,64 @@ int reply=input.nextInt();
 					input.nextLine();
 					cd = new CheckDeposit(checknum, iidd, routingnum);
 					
+					System.out.println("Account ID from:");
+					String accountID = input.next();
+					System.out.println("Amount: ");
+					double amount = input.nextDouble();
+					input.nextLine();
+					System.out.println("Description: ");
+					String desc = input.next();
+					Checks.add(new Check(accountID, checknum, amount, desc));
+					
+				}
+				ba.deposit(iidd, totalAmount, checkDeposits, cashtotal);
+				//and then check if it bounces or not bc first u put in the money and then take it out if it bounces
+				for(Check check: Checks) {//now will check if it bounces etc
+					
+				BigBank.depositCheck(check, iidd);
 				}
 				
 				break;
 			case 2: //deposit checks and cash
+				System.out.println("Total amount on all checks: ");
+				totalAmount = input.nextDouble();
+				
+				System.out.println("How many checks?");
+				amountOfChecks=input.nextInt();
+				input.nextLine();
+				//System.out.println("Total Amount on checks");
+				//totalAmount = input.nextInt();
+				//input.nextLine();
+				checkDeposits = new CheckDeposit[amountOfChecks];  //will this work more than once
+				Checks= new ArrayList<Check>(amountOfChecks);
+				
+				for(CheckDeposit cd: checkDeposits) {
+					System.out.println("Check Number: ");
+					int checknum = input.nextInt();
+					System.out.println("Bank Routing Number: ");
+					int routingnum = input.nextInt();
+					input.nextLine();
+					cd = new CheckDeposit(checknum, iidd, routingnum);
+					
+					System.out.println("Account ID from:");
+					String accountID = input.next();
+					System.out.println("Amount: ");
+					double amount = input.nextDouble();
+					input.nextLine();
+					System.out.println("Description: ");
+					String desc = input.next();
+					Checks.add(new Check(accountID, checknum, amount, desc));
+					
+				}
+				ba.deposit(iidd, totalAmount, checkDeposits);
+				//and then check if it bounces or not bc first u put in the money and then take it out if it bounces
+				for(Check check: Checks) {
+					
+				
+				BigBank.depositCheck(check, iidd);
+				}//now will check if it bounces etc
 				break;
+				
 			case 3: //deposit cash
 				System.out.println("Cash amount: ");
 				ba.deposit(input.nextDouble());
@@ -292,11 +353,11 @@ int reply=input.nextInt();
 				break;
 			case 5:
 				System.out.println("Enter the account ID.");
-				String iidd=input.nextLine();
-				BankAccount ba=BigBank.findAccount(iidd);
+				String idd=input.nextLine();
+				BankAccount bb=BigBank.findAccount(idd);
 				
-					if (ba.getCustID().equals(crucial)){    //???
-						System.out.println(ba.getBalance());
+					if (bb.getCustID().equals(crucial)){    //???************************crucial was declared elsewhrer
+						System.out.println(bb.getBalance());
 					}
 				
 			
@@ -310,8 +371,8 @@ int reply=input.nextInt();
 
 	case 7: //get total bank balance
 		double total=0;
-		for (BankAccount ba:BigBank.getBankAccounts()){
-			total+=ba.getBalance();
+		for (BankAccount b:BigBank.getBankAccounts()){
+			total+=b.getBalance();
 		}
 		System.out.println( total);
 		
