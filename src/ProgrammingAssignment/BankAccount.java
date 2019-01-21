@@ -35,9 +35,11 @@ public deposit(String accountID, int totalAmount, CheckDeposit[] checkDeposits) 
 		//do this from the bank class so that it could access the bankaccounts?? but then what do we need above deposit for???
 	}
 }
-public void withdrawal (Double amount){
+public void withdrawal (Double amount) throws IOException{
 	if (amount<0||amount>this.currentBalance){throw new InvalidDataException("Amount must be greater than zero and less than your current balance.");}
 	this.currentBalance=currentBalance-amount;
+	
+	Transactions.add(new Withdrawal(AccountID, amount));
 }
 public String getAccountID(){
 	return this.AccountID;
@@ -88,22 +90,42 @@ public String toString(){
 	str.append("Initial Balance: "+this.initialBalance+"\n");
 	str.append("Current Balance: "+this.currentBalance+"\n");
 	str.append("Account Opened: :"+ this.accountOpened+"\n");
-	str.append("Customer Information: \n");
+	
 	str.append(this.customer.getFirstName()+" ");
 	str.append(this.customer.getLastName()+"\n");
 	str.append("Social Security Number: "+this.customer.getSocialSecNum()+"\n");
 	str.append(this.customer.getAddress().getStreet()+", "+this.customer.getAddress().getCity()+", "+this.customer.getAddress().getAddressState()+", "+this.customer.getAddress().getZipcode()+"\n");
 	return str.toString();
 }
+public String toStringStatement() {
+	StringBuilder str = new StringBuilder();
+		str.append("Customer Information: \n");
+		//if(this instanceof CDAccount) str.append()
+		str.append(this.getClass() + " " + this.AccountID+"\n");
+		str.append("Current Balance: "+this.currentBalance+"\n");
+		str.append("Transactions: " );//+ Transactions.toString());
+		for(Transaction t: Transactions) {
+			str.append(t.toString());  //line break
+		}
+		str.append("Fees: ");
+		for(fee f: Fees) {
+			str.append(f.toString());
+		}
+		
+		
+		
+	
+}
 
 public void addFee(fee theFee) {
 	Fees.add(theFee);
+	currentBalance-=theFee.getFeeAmount(); //needed?
 }
 public Transfer transferTo(double amount, String accountToID) throws IOException {
 	
 	Transfer t =new Transfer(this.AccountID, accountToID, amount);
 	Transactions.add(t);
-	return t;
+	return t;  //in main have to add this to accountTo transfer list and add to balance
 }
 public void transferFrom(Transfer transfer) {
 	//if(transfer.getFromAccountID()) is equlal to this accountID?

@@ -1,4 +1,6 @@
 package ProgrammingAssignment;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 public class UseBank {
 	
@@ -54,18 +56,18 @@ str.append("5.	Manage Account \n");
 str.append("6.	Manage Customer  \n");
 str.append("7.	Get Total Bank Balance  \n");
 str.append("8.  Print all statements. \n");
-str.append("9.  Print a statement \n");
+str.append("9.  Print a full statement \n");
 str.append("0.	Exit Application   \n");
 System.out.println(str.toString());
 int reply=input.nextInt();
 {switch (reply)
-	{case 1:
+	{case 1://add customer
 		System.out.println("Enter a first name, last name, social security number, street, city, state, zip, and file name. Press Enter once after each entry.");
 		BigBank.addCustomer(input.nextLine(), input.nextLine(), input.nextLine(), input.nextLine(), input.nextLine(), input.nextLine(), input.nextLine(), input.nextLine());
 		input.nextLine();
 		break;
 
-	case 2:
+	case 2://add account
 		System.out.println("Enter the first name, last name, and social security number for the customer who owns the account. Press Enter once after each entry.");
 		String first=input.nextLine(); String last=input.nextLine(); String soc=input.nextLine();
 		Customer ploni=BigBank.findCustomer(soc);
@@ -76,7 +78,7 @@ int reply=input.nextInt();
 		input.nextLine();
 		break;
 
-	case 3:
+	case 3://close account
 		System.out.println("Enter the accountID of the account you wish to close, as well as the social security number of the corresponding customer. Press Enter after each entry.");
 		String ID=input.nextLine();
 		String ssn=input.nextLine();
@@ -85,15 +87,21 @@ int reply=input.nextInt();
 		input.nextLine();
 		break;
 
-	case 4:
+	/*case 4://remove customer
 		System.out.println("Enter the customer's social security number.");
 		String socialSecNum=input.nextLine();
 		boolean decoy=BigBank.removeCustomer(socialSecNum);
 		if (decoy==false){ throw new InvalidDataException("Try again.");}
 		input.nextLine();
+		break;*/
+ 
+		1`
+	case 4: // List accounts
+		//dont know if this will print properly
+		System.out.println(BigBank.toString());  //this prints basic account info, statements will be different
 		break;
-
-	case 5:
+		
+	case 5: //manage account
 		System.out.println("Enter the account ID.");
 	String critical=input.nextLine();
 		System.out.println("What would you like to do?");
@@ -127,7 +135,7 @@ int reply=input.nextInt();
 		input.nextLine();
 		break;
 
-	case 6:
+	case 6: //manage cusotmer
 		System.out.println("Enter customer ID.");
 		Integer crucial=input.nextInt();
 		input.nextLine();
@@ -196,7 +204,7 @@ int reply=input.nextInt();
 		input.nextLine();
 		break;
 
-	case 7:
+	case 7: //get total bank balance
 		double total=0;
 		for (BankAccount ba:BigBank.getBankAccounts()){
 			total+=ba.getBalance();
@@ -205,18 +213,36 @@ int reply=input.nextInt();
 		
 		break;
 
-	case 8:
-		System.out.println(BigBank.getBankAccounts().toString());
+	case 8://get all statements
+		//System.out.println(BigBank.toStringStatement());
 		input.nextLine();
 		break;
 
-	case 9:
-		System.out.println("Goodbye.");
-		System.exit(0);
+	case 9: //get 1 statement 
+		//TODO 
+		break;
+	case 10:
+		System.out.println("Exiting");
 	default:
 		}//close cases
 }	//close switch statement
 
 //Here put interest posting automatically daily/monthly
+//LocalDate today = LocalDate.now();
+//assume that the system will be logged out and logged in everyday
+BigBank.postInterest(Interval.DAILY);
+if(LocalDate.now().getDayOfMonth()==LocalDate.now().lengthOfMonth()) {//off by one error??
+	BigBank.postInterest(Interval.MONTHLY);
+}
+//else if(LocalDate.now().getDayOfYear()==365) { ****??u dont do it yearly, its adjusted to montlhy but dont know how to do that****??
+	
+}
+	catch(IOException e) {
+		System.out.println("file could not be found");// for?
+	}
+	//catch other exceptions here****
+	
+
+
 }//close main method
 }//close class

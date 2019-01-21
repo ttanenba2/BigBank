@@ -15,4 +15,11 @@ public class CDAccount extends SavingsAccount{
 	public InterestRate getInterestRate() {
 		return interestRate;
 	}
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append(super.toStringStatement());
+		str.append("Maturity Date: " + maturityDate);
+		str.append("Interest Rate: " + interestRate);
+		return str.toString();
+	}
 }

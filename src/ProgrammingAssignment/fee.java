@@ -15,4 +15,7 @@ public double getFeeAmount(){
 public FEETYPE getFeeType(){
 	return this.type;
 }
+public String toString() {
+	return type + " " + feeAmount;
+}
 }

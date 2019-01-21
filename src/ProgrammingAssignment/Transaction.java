@@ -15,6 +15,12 @@ public class Transaction {
 	private TransType transType;
 	private Scanner scan;
 	
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append(transType + " ID number " + transID +"/n");
+		str.append("Date: " + transDate + "/n");
+		
+	}
 	public Transaction(String fromAccountID, double transAmount, TransType transType) throws IOException{  //added parameters for now
 		initializeTransactionID("C:\transactionID.txt");
 		saveLastTransactionID("C:\transactionID.txt");

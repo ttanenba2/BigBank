@@ -16,4 +16,7 @@ public double getRate(){
 public LocalDate getRateSetDate(){
 	return rateSetDate;
 }
+public String toString() {
+	return "Rate: " + rate + "  Rate Set: " + rateSetDate;
+}
 }

@@ -14,5 +14,7 @@ public Transfer (String fromAcctID, String toAcctID, double amt) throws IOExcept
 	//this.amount=amt;
 }
 //getters and setters...
-
+public String toString() {
+	return super.toString() +"/nTransfer from Account " + super.getAccountID() + " to Account " + toAccountID;
+}
 }
