@@ -214,12 +214,16 @@ int reply=input.nextInt();
 		break;
 
 	case 8://get all statements
-		//System.out.println(BigBank.toStringStatement());
+		System.out.println(BigBank.toStringStatement());
 		input.nextLine();
 		break;
 
 	case 9: //get 1 statement 
 		//TODO 
+		System.out.println("Account ID");
+		String accountID = input.next(); //declare accountid earlier
+		BankAccount b = BigBank.findAccount(accountID);
+		System.out.println(b.toStringStatement());
 		break;
 	case 10:
 		System.out.println("Exiting");

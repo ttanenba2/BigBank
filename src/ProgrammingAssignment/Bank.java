@@ -269,6 +269,13 @@ public String toString(){
 	str.append("Bank Accounts: "+ this.bankAccounts+"\n");
 		return str.toString();
 }
+public String toStringStatement() {
+	StringBuilder str = new StringBuilder();
+	for(BankAccount b: bankAccounts) {
+		str.append(b.toStringStatement() +"/n");
+	}
+	return str.toString();
+}
 public void transfer (String acctIDfrom, String acctIDto, int amt) throws IOException{  //was bankAccount type but switched it to ids
 	//findAccount(accIDfrom);  if acctto would be an ID string, which it may be supposed to be
 	Transfer transfer =findAccount( acctIDfrom).transferTo(amt, acctIDto);  //takes money out and stores as transaction
