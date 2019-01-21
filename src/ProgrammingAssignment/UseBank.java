@@ -166,7 +166,7 @@ int reply=input.nextInt();
 					System.out.println("Bank Routing Number: ");
 					int routingnum = input.nextInt();
 					input.nextLine();
-					cd = new CheckDeposit(checknum, critical, routingnum);
+					cd = new CheckDeposit(checknum, iidd, routingnum);
 					
 				}
 				
@@ -175,7 +175,7 @@ int reply=input.nextInt();
 				System.out.println("How much would you like to withdraw?");
 				Double skm=input.nextDouble();
 				input.nextLine();
-				boolean fake=	BigBank.withdraw(critical, skm);
+				boolean fake=	BigBank.withdraw(iidd, skm);
 				if (fake==false){throw new InvalidDataException("Not enough funds");}
 				break;
 			case 3:
@@ -189,7 +189,7 @@ int reply=input.nextInt();
 		input.nextLine();
 		input.nextLine();
 		break;
-	}
+	//}
 	case 6: //manage cusotmer
 		System.out.println("Enter customer ID.");
 		Integer crucial=input.nextInt();

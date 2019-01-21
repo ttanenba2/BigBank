@@ -15,7 +15,7 @@ public class SavingsAccount extends BankAccount implements Accruable {
 		this.interestInterval = interestInterval;
 		this.interestEarned = interestEarned;
 	}
-	public double getInterestPosted(Month month, int year ) {//month is int or enum?
+	public double getInterestPosted(int month, int year ) {//month is int or enum?//
 		//super.deposit(new InterestPosting(month, year); 
 		// Transactions.addmade transactions protected*, = initialDeposit * INTERERESTRATE; should make method to access it?
 		//return something of type interestPosting??

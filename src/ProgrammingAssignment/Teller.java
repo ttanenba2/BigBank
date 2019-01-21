@@ -34,3 +34,4 @@ public String getPassword() {
 		String name=(getFirstName()+" "+this.getLastName());
 		return name;
 }
+}
