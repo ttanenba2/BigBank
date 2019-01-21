@@ -149,7 +149,9 @@ int reply=input.nextInt();
 		System.out.println("3. Deposit cash");
 		System.out.println("4. Cash Check"
 				+ "5. Add Fee"
-				+ "6. Transfer");
+				+ "6. Transfer"
+				+ "7. Withdraw"
+				+ "8. Get Account Balance");
 		 int choice=input.nextInt();//int
 		{switch (choice)
 			{case 1:
@@ -171,15 +173,64 @@ int reply=input.nextInt();
 				}
 				
 				break;
-			case 2:
+			case 2: //deposit checks and cash
+				break;
+			case 3: //deposit cash
+				System.out.println("Cash amount: ");
+				ba.deposit(input.nextDouble());
+				input.nextLine();
+				break;
+			case 4: //cash a check
+				System.out.println("Account ID from:");
+				String accountID = input.next();
+				System.out.println("check number: ");
+				int checkNum = input.nextInt();
+				System.out.println("Amount: ");
+				double amount = input.nextDouble();
+				input.nextLine();
+				System.out.println("Description: ");
+				String desc = input.next();
+				Check check = new Check(accountID, checkNum, amount, desc);
+				BigBank.cashCheck(check, iidd);
+				break;
+			case 5: //add fee
+				System.out.println("Fee type: ");
+				String type = input.next();
+				FEETYPE feetype;
+				if(type.equalsIgnoreCase("overdraft")) feetype = FEETYPE.OVERDRAFT;
+				else if(type.equalsIgnoreCase("latepayment")) feetype = FEETYPE.LATEPAYMENT;
+				else if(type.equalsIgnoreCase("returnedcheck")) feetype = FEETYPE.RETURNEDCHECK;
+				else {
+					System.out.println("Not a valid feetype");
+					break;
+				}
+				System.out.println("Fee amount: ");
+				BigBank.addFee(iidd, feetype, input.nextDouble());
+				input.nextLine();
+				break;
+			case 6: //transfer to another account
+				System.out.println("Account ID of receving account: ");
+				String accountToID = input.next();
+				System.out.println("Amount to be transfered: ");
+				amount =input.nextDouble();
+				input.nextLine();
+				ba.transferTo(amount, accountToID);
+				break;
+			
+
+				
+				
+			case 7:
 				System.out.println("How much would you like to withdraw?");
 				Double skm=input.nextDouble();
 				input.nextLine();
 				boolean fake=	BigBank.withdraw(iidd, skm);
-				if (fake==false){throw new InvalidDataException("Not enough funds");}
+				if (fake==false){//throw new InvalidDataException("Insufficient funds");}
+					System.out.println("Insufficient funds");
+				}
 				break;
-			case 3:
-				System.out.println(BigBank.getAccountBalance(critical));
+			case 8:
+				System.out.println(BigBank.getAccountBalance(iidd));
 				break;
 			default:
 				break;

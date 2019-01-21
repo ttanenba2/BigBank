@@ -281,7 +281,7 @@ public void transfer (String acctIDfrom, String acctIDto, int amt) throws IOExce
 	Transfer transfer =findAccount( acctIDfrom).transferTo(amt, acctIDto);  //takes money out and stores as transaction
 	findAccount(acctIDto).transferFrom(transfer);
 }
-public void addFee(String accountID, FEETYPE feeType, int amount){//add fee types  add a fee to what?? so added acountid
+public void addFee(String accountID, FEETYPE feeType, double amount){//add fee types  add a fee to what?? so added acountid
 	findAccount(accountID).addFee(new fee(feeType, amount));
 }
 public fee getFee (FEETYPE feeType, double feeAmount){//which fee?!?!!, the most recent??? does it make a fee?
@@ -321,7 +321,7 @@ public void cashCheck (Check check, String accountIDTo) throws IOException{  //u
 }
 public void depositCheck (Check check, String accountIDTo) throws IOException{ //accountIDfrom is inside check
 	BankAccount bankAccountTo = findAccount(accountIDTo);
-	boolean isCashable= ((CheckingAccount) findAccount(check.getAccountID())).cashCheck(check);
+	boolean isCashable= ((CheckingAccount) findAccount(check.getAccountID())).cashCheck(check);//actually takes the money out if there is enough
 	CheckDeposit theCheckDeposit=null;
 	//if(isCashable) {//checkDeposit or Deposit, access?????
 		for(Transaction t: bankAccountTo.Transactions ) {

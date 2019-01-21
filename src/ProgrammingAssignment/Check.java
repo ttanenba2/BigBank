@@ -8,11 +8,11 @@ public class Check {
 	private LocalDate dateProcessed;
 	private String description;
 	
-	public Check(String accountID, int checkNum, double amount, LocalDate date, String description) {
+	public Check(String accountID, int checkNum, double amount,  String description) {//LocalDate date,
 		this.accountID = accountID;
 		this.amount =amount;
 		this.checkNum= checkNum;
-		dateProcessed = date;
+		dateProcessed = LocalDate.now();
 		this.description = description;
 	}
 	public String getAccountID() {
