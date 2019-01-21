@@ -29,4 +29,12 @@ public class CheckDeposit {
 		return checkNum;
 	}
 	//toString*
+	public String toString() {
+		StringBuilder bob = new StringBuilder();
+		bob.append("Check Deposit    Check Number: " + checkNum+"/n")
+		bob.append("AccountID: " + accountID + "  Bank Routing ID: " + bankRoutingID +"/n");
+		bob.append("Check Status: " + checkStatus);
+		return bob.toString();
+		
+	}
 }

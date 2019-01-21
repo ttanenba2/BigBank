@@ -8,6 +8,7 @@ private String employeeID;
 //private double totalamount;
 private DepositType depositType;
 private CheckDeposit[] checkDeposits;  //it could be null
+private double cashAmount;
 
 
 //extends for actid?
@@ -21,11 +22,13 @@ public Deposit(String accountID, int totalAmount, CheckDeposit[] checkDeposits) 
 public Deposit(String accountID, double cashAmount ) throws IOException {
 	super(accountID, cashAmount, TransType.DEPOSIT);
 	this.depositType = DepositType.cash;
+	this.cashAmount = cashAmount;
 }
 public Deposit(String accountID, double totalAmount, CheckDeposit[] checkDeposits, double cashAmount) throws IOException {
 	super(accountID, totalAmount, TransType.DEPOSIT);
 	this.checkDeposits = checkDeposits;// shallow copy
 	this.depositType = DepositType.mixed;
+	this.cashAmount = cashAmount;
 	
 }
 
@@ -35,7 +38,19 @@ public DepositType getDepositType(){
 public CheckDeposit[] getCheckDeposits() {//added
 	return this.checkDeposits;
 }
-
+public String toString() {
+	StringBuilder build = new StringBuilder();
+	build.append(super.toString()+"/n");
+	build.append("Deposit Type: " + depositType+"/n");
+	if(checkDeposits!=null) {
+		for(CheckDeposit cd: checkDeposits) {
+			build.append(cd.toString() +"/n");
+		}
+	}
+	if(cashAmount!=0) build.append("Cash Amount: " + cashAmount);
+	return build.toString();
+	
+}
 
 
 

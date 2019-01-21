@@ -27,7 +27,7 @@ public void deposit (Double amount, DepositType type) throws IOException{  //***
 	currentBalance+=amount;
 	
 }
-public deposit(String accountID, int totalAmount, CheckDeposit[] checkDeposits) throws IOException{
+public void deposit(String accountID, int totalAmount, CheckDeposit[] checkDeposits) throws IOException{
 	Transactions.add(new Deposit(AccountID, totalAmount));
 	currentBalance+= totalAmount;  //what r we doing if the checks bounce
 	for(CheckDeposit checkDeposit: checkDeposits ) {
@@ -105,15 +105,13 @@ public String toStringStatement() {
 		str.append("Current Balance: "+this.currentBalance+"\n");
 		str.append("Transactions: " );//+ Transactions.toString());
 		for(Transaction t: Transactions) {
-			str.append(t.toString());  //line break
+			str.append(t.toString() +"/n");  //line break
 		}
 		str.append("Fees: ");
 		for(fee f: Fees) {
-			str.append(f.toString());
+			str.append(f.toString()+"/n");
 		}
-		
-		
-		
+		return str.toString();
 	
 }
 
