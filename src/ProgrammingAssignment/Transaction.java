@@ -19,7 +19,7 @@ public class Transaction {
 		StringBuilder str = new StringBuilder();
 		str.append(transType + " ID number " + transID +"/n");
 		str.append("Date: " + transDate + "/n");
-		
+		str.append("Amount: " + transAmount);
 	}
 	public Transaction(String fromAccountID, double transAmount, TransType transType) throws IOException{  //added parameters for now
 		initializeTransactionID("C:\transactionID.txt");

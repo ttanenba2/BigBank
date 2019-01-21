@@ -112,7 +112,6 @@ public String toStringStatement() {
 			str.append(f.toString()+"/n");
 		}
 		return str.toString();
-	
 }
 
 public void addFee(fee theFee) {

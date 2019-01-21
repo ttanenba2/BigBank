@@ -2,11 +2,11 @@ package ProgrammingAssignment;
 
 public class CheckDeposit {
 	private int checkNum;
-	private int accountID;
+	private String accountID;
 	private int bankRoutingID;
 	private CheckStatus checkStatus; 
 	
-	public CheckDeposit(int checkNum, int accountID, int bankRoutingID) {//, CheckStatus checkStatus
+	public CheckDeposit(int checkNum, String accountID, int bankRoutingID) {//, CheckStatus checkStatus
 		this.checkNum = checkNum;
 		this.accountID = accountID;
 		this.bankRoutingID = bankRoutingID;
@@ -21,7 +21,7 @@ public class CheckDeposit {
 	public void setCheckStatus(CheckStatus checkStatus) {
 		this.checkStatus = checkStatus;
 	}
-	public int getAccountID() {
+	public String getAccountID() {
 		// TODO Auto-generated method stub
 		return accountID;
 	}

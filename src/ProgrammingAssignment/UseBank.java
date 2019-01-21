@@ -28,7 +28,9 @@ Bank current=new Bank(bankName, bankAddress);
 	tellers[0]=new Teller("1", "Josh", "Smith", "JSlogin", "JSpassword");
 	tellers[1]=new Teller("2", "Harry", "Potter", "HPlogin", "HPpassword");
 	tellers[2]=new Teller("3", "Cynthia", "Banks", "CBlogin", "CBpassword");
+	LocalDate last;
 	try{
+		try{
 		Teller currentTeller;
 	
 	System.out.println("Hello, Teller. \n Please enter your username.");
@@ -45,7 +47,11 @@ Bank current=new Bank(bankName, bankAddress);
 		System.out.println("Invalid password. Please try again.");
 		System.out.println("Hello, "+currentTeller.getName()+". Please enter your password.");
 		 currentPassword=incoming.nextLine();
-	}
+	}}
+		catch (Exception e){
+			System.out.println("Failed to identify this teller. Please restart the program and try again.");
+			System.exit(1);
+		}
 System.out.println("What would you like to do?  \n");
 StringBuilder str=new StringBuilder("1.	Add a customer \n");
 str.append("2.	Add a new Account \n");
@@ -95,7 +101,6 @@ int reply=input.nextInt();
 		input.nextLine();
 		break;*/
  
-		1`
 	case 4: // List accounts
 		//dont know if this will print properly
 		System.out.println(BigBank.toString());  //this prints basic account info, statements will be different
@@ -189,11 +194,58 @@ int reply=input.nextInt();
 				String iidd=input.nextLine();
 				BankAccount ba=BigBank.findAccount(iidd);
 				
-					if (ba.getCustID().equals(crucial)){
+					if (ba.getCustID().equals(crucial)){    //???
 						System.out.println(ba.getBalance());
 					}
 				
-			default:
+			case 5: //manage account
+				System.out.println("Enter the account ID.");
+			String critical=input.nextLine();
+				System.out.println("What would you like to do?");
+				System.out.println("1. Deposit Checks");
+				System.out.println("2. Deposit Checks and cash ");
+				System.out.println("3. Deposit cash");
+				System.out.println("4. Cash Check"
+						+ "5. Add Fee"
+						+ "6. Transfer");
+				int choice=input.nextInt();
+				{switch (choice)
+					{case 1:
+						System.out.println("How many checks?");
+						int amountOfChecks=input.nextInt();
+						input.nextLine();
+						System.out.println("Total Amount on checks");
+						int amountOfMoney = input.nextInt();
+						input.nextLine();
+						CheckDeposit[] checks = new CheckDeposit[amountOfChecks];  //will this work more than once
+						for(CheckDeposit cd: checks) {
+							System.out.println("Check Number: ");
+							int checknum = input.nextInt();
+							System.out.println("Bank Routing Number: ");
+							int routingnum = input.nextInt();
+							input.nextLine();
+							cd = new CheckDeposit(checknum, critical, routingnum);
+							
+						}
+						
+						break;
+					case 2:
+						System.out.println("How much would you like to withdraw?");
+						Double skm=input.nextDouble();
+						input.nextLine();
+						boolean fake=	BigBank.withdraw(critical, skm);
+						if (fake==false){throw new InvalidDataException("Not enough funds");}
+						break;
+					case 3:
+						System.out.println(BigBank.getAccountBalance(critical));
+						break;
+					default:
+						break;
+					}
+					
+				}//end switch
+				input.nextLine();
+				input.nextLine();
 				break;
 			}
 			
@@ -219,34 +271,31 @@ int reply=input.nextInt();
 		break;
 
 	case 9: //get 1 statement 
-		//TODO 
 		System.out.println("Account ID");
 		String accountID = input.next(); //declare accountid earlier
 		BankAccount b = BigBank.findAccount(accountID);
 		System.out.println(b.toStringStatement());
 		break;
+	
+		
 	case 10:
 		System.out.println("Exiting");
 	default:
 		}//close cases
 }	//close switch statement
 
-//Here put interest posting automatically daily/monthly
-//LocalDate today = LocalDate.now();
-//assume that the system will be logged out and logged in everyday
+if (LocalDate.now().isEqual(last))
+{
 BigBank.postInterest(Interval.DAILY);
-if(LocalDate.now().getDayOfMonth()==LocalDate.now().lengthOfMonth()) {//off by one error??
+if(LocalDate.now().getDayOfMonth()==LocalDate.now().lengthOfMonth()) {
 	BigBank.postInterest(Interval.MONTHLY);
 }
-//else if(LocalDate.now().getDayOfYear()==365) { ****??u dont do it yearly, its adjusted to montlhy but dont know how to do that****??
-	
-}
+last=LocalDate.now();
+}}
 	catch(IOException e) {
-		System.out.println("file could not be found");// for?
+		System.out.println("System encountered an error and needs to close.");
+		System.exit(1);
 	}
-	//catch other exceptions here****
 	
-
-
 }//close main method
 }//close class
